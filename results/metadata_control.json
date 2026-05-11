@@ -1,0 +1,202 @@
+[
+    {
+        "id": "control_0.mp3",
+        "speaker_id": "es-CO-GonzaloNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "La computación cuántica revolucionará la seguridad de las comunicaciones cifradas.",
+        "text_modified": "La computación cuántica revolucionará la seguridad de las comunicaciones cifradas.",
+        "audio_path": "results/audios/control\\control_0.mp3"
+    },
+    {
+        "id": "control_1.mp3",
+        "speaker_id": "es-AR-ElenaNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "El diagnóstico precoz es fundamental para el éxito del tratamiento oncológico.",
+        "text_modified": "El diagnóstico precoz es fundamental para el éxito del tratamiento oncológico.",
+        "audio_path": "results/audios/control\\control_1.mp3"
+    },
+    {
+        "id": "control_2.mp3",
+        "speaker_id": "es-MX-DaliaNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "Las precipitaciones torrenciales causaron inundaciones en toda la región costera.",
+        "text_modified": "Las precipitaciones torrenciales causaron inundaciones en toda la región costera.",
+        "audio_path": "results/audios/control\\control_2.mp3"
+    },
+    {
+        "id": "control_3.mp3",
+        "speaker_id": "es-MX-JorgeNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "Para preparar un buen gazpacho es imprescindible usar tomates muy maduros.",
+        "text_modified": "Para preparar un buen gazpacho es imprescindible usar tomates muy maduros.",
+        "audio_path": "results/audios/control\\control_3.mp3"
+    },
+    {
+        "id": "control_4.mp3",
+        "speaker_id": "es-ES-ElviraNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "La volatilidad de los mercados financieros genera incertidumbre entre los inversores.",
+        "text_modified": "La volatilidad de los mercados financieros genera incertidumbre entre los inversores.",
+        "audio_path": "results/audios/control\\control_4.mp3"
+    },
+    {
+        "id": "control_5.mp3",
+        "speaker_id": "es-MX-JorgeNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "La arquitectura gótica se caracteriza por sus arcos apuntados y bóvedas de crucería.",
+        "text_modified": "La arquitectura gótica se caracteriza por sus arcos apuntados y bóvedas de crucería.",
+        "audio_path": "results/audios/control\\control_5.mp3"
+    },
+    {
+        "id": "control_6.mp3",
+        "speaker_id": "es-MX-DaliaNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "El entrenamiento de alta intensidad mejora la resistencia cardiovascular significativamente.",
+        "text_modified": "El entrenamiento de alta intensidad mejora la resistencia cardiovascular significativamente.",
+        "audio_path": "results/audios/control\\control_6.mp3"
+    },
+    {
+        "id": "control_7.mp3",
+        "speaker_id": "es-AR-ElenaNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "El aprendizaje colaborativo fomenta el desarrollo de habilidades sociales en el aula.",
+        "text_modified": "El aprendizaje colaborativo fomenta el desarrollo de habilidades sociales en el aula.",
+        "audio_path": "results/audios/control\\control_7.mp3"
+    },
+    {
+        "id": "control_8.mp3",
+        "speaker_id": "es-MX-DaliaNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "La teoría de la relatividad cambió nuestra comprensión del espacio y el tiempo.",
+        "text_modified": "La teoría de la relatividad cambió nuestra comprensión del espacio y el tiempo.",
+        "audio_path": "results/audios/control\\control_8.mp3"
+    },
+    {
+        "id": "control_9.mp3",
+        "speaker_id": "es-AR-ElenaNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "El itinerario del crucero incluye escalas en los puertos más importantes del Mediterráneo.",
+        "text_modified": "El itinerario del crucero incluye escalas en los puertos más importantes del Mediterráneo.",
+        "audio_path": "results/audios/control\\control_9.mp3"
+    },
+    {
+        "id": "control_10.mp3",
+        "speaker_id": "es-AR-ElenaNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "Cien años de soledad es una obra maestra del realismo mágico latinoamericano.",
+        "text_modified": "Cien años de soledad es una obra maestra del realismo mágico latinoamericano.",
+        "audio_path": "results/audios/control\\control_10.mp3"
+    },
+    {
+        "id": "control_11.mp3",
+        "speaker_id": "es-MX-DaliaNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "La técnica del claroscuro permite crear una sensación de volumen mediante luces y sombras.",
+        "text_modified": "La técnica del claroscuro permite crear una sensación de volumen mediante luces y sombras.",
+        "audio_path": "results/audios/control\\control_11.mp3"
+    },
+    {
+        "id": "control_12.mp3",
+        "speaker_id": "es-ES-AlvaroNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "La biodiversidad de la selva amazónica es vital para el equilibrio del planeta.",
+        "text_modified": "La biodiversidad de la selva amazónica es vital para el equilibrio del planeta.",
+        "audio_path": "results/audios/control\\control_12.mp3"
+    },
+    {
+        "id": "control_13.mp3",
+        "speaker_id": "es-CO-GonzaloNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "El principio de presunción de inocencia es la base de cualquier sistema judicial democrático.",
+        "text_modified": "El principio de presunción de inocencia es la base de cualquier sistema judicial democrático.",
+        "audio_path": "results/audios/control\\control_13.mp3"
+    },
+    {
+        "id": "control_14.mp3",
+        "speaker_id": "es-MX-JorgeNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "La exploración de Marte permitirá descubrir si existió vida en otros planetas.",
+        "text_modified": "La exploración de Marte permitirá descubrir si existió vida en otros planetas.",
+        "audio_path": "results/audios/control\\control_14.mp3"
+    },
+    {
+        "id": "control_15.mp3",
+        "speaker_id": "es-MX-JorgeNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "La orquesta filarmónica interpretará la novena sinfonía de Beethoven mañana.",
+        "text_modified": "La orquesta filarmónica interpretará la novena sinfonía de Beethoven mañana.",
+        "audio_path": "results/audios/control\\control_15.mp3"
+    },
+    {
+        "id": "control_16.mp3",
+        "speaker_id": "es-MX-JorgeNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "La inflación moderada es un indicador de una economía en crecimiento saludable.",
+        "text_modified": "La inflación moderada es un indicador de una economía en crecimiento saludable.",
+        "audio_path": "results/audios/control\\control_16.mp3"
+    },
+    {
+        "id": "control_17.mp3",
+        "speaker_id": "es-ES-AlvaroNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "El pensamiento crítico nos ayuda a discernir entre información verdadera y falsa.",
+        "text_modified": "El pensamiento crítico nos ayuda a discernir entre información verdadera y falsa.",
+        "audio_path": "results/audios/control\\control_17.mp3"
+    },
+    {
+        "id": "control_18.mp3",
+        "speaker_id": "es-MX-JorgeNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "El diseño estructural del rascacielos garantiza su estabilidad ante fuertes vientos.",
+        "text_modified": "El diseño estructural del rascacielos garantiza su estabilidad ante fuertes vientos.",
+        "audio_path": "results/audios/control\\control_18.mp3"
+    },
+    {
+        "id": "control_19.mp3",
+        "speaker_id": "es-AR-ElenaNeural",
+        "disfluency_type": "control",
+        "severity": 0.0,
+        "intensity": 0.0,
+        "text_original": "Las tradiciones populares mantienen viva la identidad de los pueblos a través del tiempo.",
+        "text_modified": "Las tradiciones populares mantienen viva la identidad de los pueblos a través del tiempo.",
+        "audio_path": "results/audios/control\\control_19.mp3"
+    }
+]

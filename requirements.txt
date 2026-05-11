@@ -1,0 +1,14 @@
+openai-whisper
+edge-tts
+pydub
+vosk
+speechrecognition
+plotly
+jiwer
+librosa
+transformers
+huggingface_hub
+torch
+static-ffmpeg
+pandas
+streamlit
