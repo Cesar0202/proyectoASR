@@ -269,7 +269,7 @@ else:
         st.divider()
 
         # Experimento 3: Hablantes
-        st.subheader("Experimento 3: Diferentes Voces")nto 5: Diferentes Voces")
+        st.subheader("Experimento 3: Diferentes Voces")
         speak_df = df_f.groupby(['speaker_id', 'model'])['wer'].mean().reset_index()
         f6 = px.bar(speak_df, x='speaker_id', y='wer', color='model', barmode='group',
                    color_discrete_map=COLOR_MAP,
