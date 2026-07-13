@@ -376,7 +376,7 @@ else:
                           labels={"value": "Promedio de palabras", "variable": "Tipo de Error", "model": "Modelo"})
             f_rep.update_layout(template="plotly_dark")
             st.plotly_chart(f_rep, use_container_width=True)
-            st.info("Nota: Una tasa alta de 'Eliminaciones' indica que el modelo está filtrando la tartamudez automáticamente.")
+
 
         st.divider()
 
