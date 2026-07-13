@@ -172,15 +172,6 @@ else:
     # Filtramos por lo que eligio el usuario
     df_f = df_f[df_f['model'].isin(mod_sel)]
     df_control = df_control[df_control['model'].isin(mod_sel)]
-        
-    st.divider()
-    st.subheader("Configuracion de las pruebas")
-    
-    intensidades = sorted([i for i in df['intensity_label'].unique() if i != "Control"])
-    intensidad_fija = st.select_slider("Cuantas palabras (Intensidad)", options=intensidades, value=intensidades[0])
-    
-    severidades = sorted([s for s in df['severity_label'].unique() if s != "Control"])
-    severidad_fija = st.select_slider("Que tan grave (Severidad)", options=severidades, value=severidades[1] if len(severidades)>1 else severidades[0])
 
     # Las 3 pestañas
     tab1, tab2, tab3 = st.tabs(["Dashboard", "Probar Audio", "Analisis de Errores"])
@@ -256,51 +247,8 @@ else:
         fig_evo.update_layout(template="plotly_dark", yaxis_tickformat=".0%", xaxis_tickangle=-45)
         st.plotly_chart(fig_evo, use_container_width=True)
 
-        st.divider()
-
-        # Experimento 2: Impacto de la Severidad
-        st.subheader("Experimento 2: ¿Cómo afecta la gravedad?")
-        st.write(f"Análisis del error según qué tan larga es la tartamudez (con Intensidad fija en: {intensidad_fija})")
-        df_exp2 = df_f[df_f['intensity_label'] == intensidad_fija]
-        heat = df_exp2.groupby(['disfluency_type', 'severity_label'])['wer'].mean().reset_index()
-        heat['severity_label'] = pd.Categorical(heat['severity_label'], categories=["Leve", "Moderado", "Severo"], ordered=True)
-        piv = heat.pivot(index='disfluency_type', columns='severity_label', values='wer')
-        f4 = px.imshow(piv, text_auto=".2f", color_continuous_scale='RdYlGn_r',
-                      labels={"disfluency_type": "Tipo de Disfluencia", "severity_label": "Severidad", "color": "Error (WER)"})
-        f4.update_layout(template="plotly_dark", xaxis_title="Severidad", yaxis_title="Tipo de Disfluencia")
-        st.plotly_chart(f4, use_container_width=True)
-
-        st.divider()
-
-        # Experimento 3: Impacto de la Intensidad
-        st.subheader("Experimento 3: ¿Cómo afecta la cantidad?")
-        st.write(f"Aca vemos si influye que haya mas palabras con problemas (con Severidad fija en: {severidad_fija})")
-        df_exp3 = df_f[df_f['severity_label'] == severidad_fija]
-        int_df = df_exp3.groupby(['intensity_label', 'model'])['wer'].mean().reset_index()
-        int_df['intensity_label'] = pd.Categorical(int_df['intensity_label'], categories=["Baja", "Alta"], ordered=True)
-        
-        c_a, c_b = st.columns([2, 1])
-        with c_a:
-            f5 = px.bar(int_df, x='model', y='wer', color='intensity_label', barmode='group',
-                       text_auto=".1%", 
-                       color_discrete_map={"Baja": "#94A3B8", "Alta": "#3B82F6"},
-                       labels={"intensity_label": "Intensidad", "wer": "WER", "model": "Modelo"})
-            f5.update_layout(template="plotly_dark", yaxis_tickformat=".0%", 
-                            xaxis_title="Modelo", yaxis_title="Tasa de Error (WER)")
-            st.plotly_chart(f5, use_container_width=True)
-        
-        with c_b:
-            tab_int = int_df.pivot(index='model', columns='intensity_label', values='wer')
-            if 'Baja' in tab_int.columns and 'Alta' in tab_int.columns:
-                tab_int['Incremento'] = (tab_int['Alta'] - tab_int['Baja']) / tab_int['Baja']
-                st.write("**Tabla Comparativa**")
-                st.dataframe(tab_int.style.format("{:.2%}")
-                            .background_gradient(cmap='OrRd', subset=['Incremento']))
-
-        st.divider()
-
-        # Experimento 4: Tipos de Disfluencia
-        st.subheader("Experimento 4: Análisis por Categoría")
+              # Experimento 2: Tipos de Disfluencia
+        st.subheader("Experimento 2: Análisis por Categoría")
         c1, c2 = st.columns(2)
         with c1:
             st.write("**Error promedio por tipo**")
@@ -314,14 +262,14 @@ else:
             st.write("**Mapa de Sensibilidad (Radar)**")
             radar = df_f.groupby(['model', 'disfluency_type'])['wer'].mean().reset_index()
             f3 = px.line_polar(radar, r='wer', theta='disfluency_type', color='model', line_close=True,
-                              color_discrete_map=COLOR_MAP)
+                               color_discrete_map=COLOR_MAP)
             f3.update_layout(template="plotly_dark")
             st.plotly_chart(f3, use_container_width=True)
 
         st.divider()
 
-        # Experimento 5: Hablantes
-        st.subheader("Experimento 5: Diferentes Voces")
+        # Experimento 3: Hablantes
+        st.subheader("Experimento 3: Diferentes Voces")nto 5: Diferentes Voces")
         speak_df = df_f.groupby(['speaker_id', 'model'])['wer'].mean().reset_index()
         f6 = px.bar(speak_df, x='speaker_id', y='wer', color='model', barmode='group',
                    color_discrete_map=COLOR_MAP,
