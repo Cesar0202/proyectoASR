@@ -172,14 +172,14 @@ else:
     df_f = df_f[df_f['model'].isin(mod_sel)]
     df_control = df_control[df_control['model'].isin(mod_sel)]
         
-        st.divider()
-        st.subheader("Configuracion de las pruebas")
-        
-        intensidades = sorted([i for i in df['intensity_label'].unique() if i != "Control"])
-        intensidad_fija = st.select_slider("Cuantas palabras (Intensidad)", options=intensidades, value=intensidades[0])
-        
-        severidades = sorted([s for s in df['severity_label'].unique() if s != "Control"])
-        severidad_fija = st.select_slider("Que tan grave (Severidad)", options=severidades, value=severidades[1] if len(severidades)>1 else severidades[0])
+    st.divider()
+    st.subheader("Configuracion de las pruebas")
+    
+    intensidades = sorted([i for i in df['intensity_label'].unique() if i != "Control"])
+    intensidad_fija = st.select_slider("Cuantas palabras (Intensidad)", options=intensidades, value=intensidades[0])
+    
+    severidades = sorted([s for s in df['severity_label'].unique() if s != "Control"])
+    severidad_fija = st.select_slider("Que tan grave (Severidad)", options=severidades, value=severidades[1] if len(severidades)>1 else severidades[0])
 
     # Las 3 pestañas
     tab1, tab2, tab3 = st.tabs(["Dashboard", "Probar Audio", "Analisis de Errores"])
