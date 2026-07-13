@@ -119,8 +119,9 @@ try:
 except:
     pass
 
-# Para que funcionen los modelos
-sys.path.append(os.path.join(os.getcwd(), "src"))
+# Para que funcionen los modelos desde cualquier ruta (especialmente en servidores)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(current_dir, "src"))
 from models.asr_models import ASRManager
 
 # para leer el json de resultados
