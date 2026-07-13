@@ -3,6 +3,6 @@ __pycache__/
 .streamlit/
 results/audios/
 results/backups/
-models/
+/models/
 *.mp3
 *.wav
