@@ -158,29 +158,19 @@ st.title("Sistema de Benchmark para Modelos de Voz (ASR)")
 if df is None:
     st.error("No hay datos todavía.")
 else:
-    # Filtros en la izquierda
-    st.sidebar.header("Filtros de Evaluación")
+    st.sidebar.title("Controles del Lab")
+    st.sidebar.write("Configura los graficos:")
     
     with st.sidebar:
-        modelo_sel = st.multiselect("Seleccionar Modelos", df['model'].unique(), default=df['model'].unique())
+        mod_sel = st.multiselect("Elegir Modelos", df['model'].unique(), default=list(df['model'].unique()))
         
-        tipos_disponibles = sorted(df['disfluency_type'].unique())
-        tipo_sel = st.multiselect("Tipos de Disfluencia", tipos_disponibles, default=[t for t in tipos_disponibles if t != "Control (Limpio)"])
-        
-    # Filtros de la izquierda
-    st.sidebar.title("Controles del Lab")
-    
     # Separamos el audio normal de los que tienen disfluencias
     df_control = df[df['intensity_label'] == "Control"]
     df_f = df[df['intensity_label'] != "Control"]
 
-    with st.sidebar:
-        st.write("Configura los graficos:")
-        mod_sel = st.multiselect("Elegir Modelos", df['model'].unique(), default=list(df['model'].unique()))
-        
-        # Filtramos por lo que eligio el usuario
-        df_f = df_f[df_f['model'].isin(mod_sel)]
-        df_control = df_control[df_control['model'].isin(mod_sel)]
+    # Filtramos por lo que eligio el usuario
+    df_f = df_f[df_f['model'].isin(mod_sel)]
+    df_control = df_control[df_control['model'].isin(mod_sel)]
         
         st.divider()
         st.subheader("Configuracion de las pruebas")
@@ -215,8 +205,8 @@ else:
 
         st.divider()
 
-        # Grafico comparativo
-        st.subheader("1. Audio Limpio vs Con Tartamudez")
+        # Experimento 1: Base (Control vs Disfluente)
+        st.subheader("Experimento 1: Impacto Base de la Disfluencia")
         df_comp = pd.concat([
             df_control.assign(categoria="Control (Limpio)"),
             df_f.assign(categoria="Con Disfluencias")
@@ -234,9 +224,42 @@ else:
 
         st.divider()
 
-        # Grafico de gravedad
-        st.subheader("2. ¿Como afecta la gravedad?")
-        st.write(f"Vemos el error segun que tan larga es la tartamudez (con Intensidad fija en: {intensidad_fija})")
+        # Análisis Combinado: Severidad e Intensidad
+        st.subheader("Análisis Detallado: Evolución del Error (Severidad + Intensidad)")
+        st.write("Evolución del error desde el estado base (Control) hasta las combinaciones más extremas de disfluencia.")
+        
+        def agrupar_sev_int(row):
+            if row['severity_label'] == "Control" or row['intensity_label'] == "Control":
+                return "0. Base (Control)"
+            # Para asegurar el orden correcto en el gráfico
+            niveles = {"Leve": "1. Leve", "Moderado": "2. Mod", "Severo": "3. Sev"}
+            return f"{niveles.get(row['severity_label'], row['severity_label'])} - {row['intensity_label']}"
+            
+        df_combined = pd.concat([df_control, df_f])
+        df_combined['Combinacion'] = df_combined.apply(agrupar_sev_int, axis=1)
+        
+        orden_categorias = [
+            "0. Base (Control)",
+            "1. Leve - Baja", "1. Leve - Alta",
+            "2. Mod - Baja", "2. Mod - Alta",
+            "3. Sev - Baja", "3. Sev - Alta"
+        ]
+        
+        df_combined['Combinacion'] = pd.Categorical(df_combined['Combinacion'], categories=orden_categorias, ordered=True)
+        evolucion = df_combined.groupby(['Combinacion', 'model'])['wer'].mean().reset_index()
+        
+        fig_evo = px.line(evolucion, x="Combinacion", y="wer", color="model", markers=True,
+                          title="Degradación Progresiva del WER (Base vs Combos)",
+                          color_discrete_map=COLOR_MAP,
+                          labels={"Combinacion": "Escenario (Severidad - Intensidad)", "wer": "WER Promedio", "model": "Modelo"})
+        fig_evo.update_layout(template="plotly_dark", yaxis_tickformat=".0%", xaxis_tickangle=-45)
+        st.plotly_chart(fig_evo, use_container_width=True)
+
+        st.divider()
+
+        # Experimento 2: Impacto de la Severidad
+        st.subheader("Experimento 2: ¿Cómo afecta la gravedad?")
+        st.write(f"Análisis del error según qué tan larga es la tartamudez (con Intensidad fija en: {intensidad_fija})")
         df_exp2 = df_f[df_f['intensity_label'] == intensidad_fija]
         heat = df_exp2.groupby(['disfluency_type', 'severity_label'])['wer'].mean().reset_index()
         heat['severity_label'] = pd.Categorical(heat['severity_label'], categories=["Leve", "Moderado", "Severo"], ordered=True)
@@ -248,8 +271,8 @@ else:
 
         st.divider()
 
-        # Grafico de cantidad
-        st.subheader("3. ¿Como afecta la cantidad?")
+        # Experimento 3: Impacto de la Intensidad
+        st.subheader("Experimento 3: ¿Cómo afecta la cantidad?")
         st.write(f"Aca vemos si influye que haya mas palabras con problemas (con Severidad fija en: {severidad_fija})")
         df_exp3 = df_f[df_f['severity_label'] == severidad_fija]
         int_df = df_exp3.groupby(['intensity_label', 'model'])['wer'].mean().reset_index()
@@ -273,6 +296,38 @@ else:
                 st.dataframe(tab_int.style.format("{:.2%}")
                             .background_gradient(cmap='OrRd', subset=['Incremento']))
 
+        st.divider()
+
+        # Experimento 4: Tipos de Disfluencia
+        st.subheader("Experimento 4: Análisis por Categoría")
+        c1, c2 = st.columns(2)
+        with c1:
+            st.write("**Error promedio por tipo**")
+            f1 = px.bar(df_f.groupby(['disfluency_type', 'model'])['wer'].mean().reset_index(), 
+                       x='disfluency_type', y='wer', color='model', barmode='group',
+                       color_discrete_map=COLOR_MAP)
+            f1.update_layout(template="plotly_dark")
+            st.plotly_chart(f1, use_container_width=True)
+            
+        with c2:
+            st.write("**Mapa de Sensibilidad (Radar)**")
+            radar = df_f.groupby(['model', 'disfluency_type'])['wer'].mean().reset_index()
+            f3 = px.line_polar(radar, r='wer', theta='disfluency_type', color='model', line_close=True,
+                              color_discrete_map=COLOR_MAP)
+            f3.update_layout(template="plotly_dark")
+            st.plotly_chart(f3, use_container_width=True)
+
+        st.divider()
+
+        # Experimento 5: Hablantes
+        st.subheader("Experimento 5: Diferentes Voces")
+        speak_df = df_f.groupby(['speaker_id', 'model'])['wer'].mean().reset_index()
+        f6 = px.bar(speak_df, x='speaker_id', y='wer', color='model', barmode='group',
+                   color_discrete_map=COLOR_MAP,
+                   title="¿A qué modelos les cuesta más ciertas voces?")
+        f6.update_layout(template="plotly_dark", xaxis_tickangle=-45)
+        st.plotly_chart(f6, use_container_width=True)
+
     with tab2:
         st.header("Probar un audio")
         modo = st.radio("¿Qué quieres hacer?", ["Subir mi audio", "Usar uno del sistema"])
@@ -291,11 +346,17 @@ else:
         else:
             sel = st.selectbox("Elegir audio", df['audio_path'].unique())
             if sel:
-                audio = sel
-                fila = df[df['audio_path'] == sel].iloc[0]
-                txt_ref = fila['text_original']
-                st.audio(sel)
-                st.write(f"Texto: {txt_ref}")
+                # Arreglar barras para Linux/Windows y ver si el archivo de verdad existe
+                audio_path_fixed = sel.replace("\\", "/")
+                if os.path.exists(audio_path_fixed):
+                    audio = audio_path_fixed
+                    fila = df[df['audio_path'] == sel].iloc[0]
+                    txt_ref = fila['text_original']
+                    st.audio(audio)
+                    st.write(f"Texto: {txt_ref}")
+                else:
+                    st.warning(f"El archivo de audio no esta en el servidor: {audio_path_fixed}")
+                    st.info("Puedes subir tu propio audio en la opcion de arriba para probar.")
             
         if audio:
             m = st.selectbox("Modelo", ["whisper_base", "google", "vosk", "wav2vec2"])
@@ -321,7 +382,6 @@ else:
 
                         calc = jiwer.process_words(ref_norm, pred_norm)
                         cer_val = jiwer.cer(ref_norm, pred_norm)
-                        
                         m1, m2, m3, m4, m5 = st.columns(5)
                         m1.metric("WER", f"{calc.wer:.2%}")
                         m2.metric("CER", f"{cer_val:.2%}")
@@ -329,13 +389,11 @@ else:
                         m4.metric("Eliminaciones", calc.deletions)
                         m5.metric("Inserciones", calc.insertions)
                         
-                        st.divider()
-                        
+                        # Listamos los errores justo debajo sin tanto espacio
                         ref_words = ref_norm.split()
-                        st.divider()
+                        hyp_words = pred_norm.split()
                         
-                        # Listamos los errores uno por uno para que se entienda
-                        st.markdown("<h3 style='margin-top: 30px;'>Errores encontrados:</h3>", unsafe_allow_html=True)
+                        st.markdown("<h4 style='margin-top: 25px; margin-bottom: 10px;'>Errores encontrados:</h4>", unsafe_allow_html=True)
                         for chunk in calc.alignments[0]:
                             if chunk.type == 'substitute':
                                 for i, j in zip(range(chunk.ref_start_idx, chunk.ref_end_idx), 
