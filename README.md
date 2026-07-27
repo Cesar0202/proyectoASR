@@ -21,7 +21,7 @@ El objetivo es ver cuál de todos es más "robusto" y mantiene mejor el mensaje 
 *   **Análisis de errores:** Una sección donde explicamos por qué los modelos fallan (si borran palabras o se las inventan).
 
 ### Cómo hacerlo correr
-1. (Opcional pero recomendado) Crea y activa un entorno virtual:
+1. Crea y activa un entorno virtual:
    ```bash
    python -m venv venv
    # En Windows:
