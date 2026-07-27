@@ -29,7 +29,6 @@ El objetivo es ver cuál de todos es más "robusto" y mantiene mejor el mensaje 
 ---
 **Integrantes - Grupo 3**
 *   Huaman Uriarte Cesar Alberto
-*   Limachi Sarmiento Jose Luis
 *   Ccora Quispe Holiver Jhunior
 *   Liñan Paredes Saul Alexander
 *   Cespedes Viguria Jhamir Sebastian
